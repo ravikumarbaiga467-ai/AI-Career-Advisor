@@ -1,0 +1,301 @@
+<label>Class</label>
+<select id="class">
+<option>10th</option>
+<option>11th</option>
+<option>12th</option>
+<option>College</option>
+</select>
+
+<label>Stream</label>
+<select id="stream">
+<option>Science</option>
+<option>Commerce</option>
+<option>Arts</option>
+<option>Agriculture</option>
+</select>
+
+<label>Your Skills</label>
+<input id="skills" placeholder="Example: Computer, Drawing, Maths">
+
+<label>Your Interest</label>
+<select id="interest">
+<option value="technology">Technology</option>
+<option value="medical">Medical</option>
+<option value="agriculture">Agriculture</option>
+<option value="business">Business</option>
+<option value="teaching">Teaching</option>
+<option value="creative">Creative Arts</option>
+</select>
+
+<button class="btn" type="submit">Register Now</button>
+</form>
+<div id="registrationResult"></div>
+</div>
+</section>
+
+<section class="container" id="test">
+<div class="heading">
+<h2>Career Interest Test</h2>
+<p>Answer these questions to discover your interests.</p>
+</div>
+
+<div class="formbox">
+<label>1. What do you enjoy most?</label>
+<select id="q1">
+<option value="technology">Technology and Computers</option>
+<option value="medical">Helping and caring for people</option>
+<option value="agriculture">Farming and Nature</option>
+<option value="business">Business and Management</option>
+<option value="creative">Art and Creativity</option>
+</select>
+
+<label>2. Which subject do you like?</label>
+<select id="q2">
+<option value="technology">Mathematics / Computer</option>
+<option value="medical">Biology</option>
+<option value="agriculture">Agriculture / Biology</option>
+<option value="business">Economics</option>
+<option value="creative">Drawing / Arts</option>
+</select>
+
+<label>3. What is your dream work?</label>
+<select id="q3">
+<option value="technology">Software Developer</option>
+<option value="medical">Doctor</option>
+<option value="agriculture">Agriculture Scientist</option>
+<option value="business">Entrepreneur</option>
+<option value="creative">Designer</option>
+</select>
+
+<button class="btn" onclick="careerTest()">Submit Test</button>
+<div id="testResult"></div>
+</div>
+</section>
+
+<section class="container" id="guidance">
+<div class="heading">
+<h2>Career Guidance</h2>
+<p>Explore popular career fields.</p>
+</div>
+<div class="grid" id="careerGrid"></div>
+</section>
+
+<section class="container" id="roadmap">
+<div class="heading">
+<h2>Career Roadmap</h2>
+<p>Steps to build your future.</p>
+</div>
+<div class="grid">
+<div class="card">
+<h3>Step 1</h3><p>Complete your school education.</p>
+</div>
+<div class="card">
+<h3>Step 2</h3><p>Choose a suitable course and stream.</p>
+</div>
+<div class="card">
+<h3>Step 3</h3><p>Prepare for entrance exams if required.</p>
+</div>
+<div class="card">
+<h3>Step 4</h3><p>Develop practical skills and gain experience.</p>
+</div>
+</div>
+</section>
+
+<section class="container" id="courses">
+<div class="heading"><h2>Course Information</h2></div>
+<div class="grid" id="courseGrid"></div>
+</section>
+
+<section class="container" id="scholarship">
+<div class="heading"><h2>Scholarship Guide</h2></div>
+<div class="grid">
+<div class="card">
+<h3>National Scholarship Portal</h3>
+<p>केंद्र सरकार की विभिन्न छात्रवृत्ति योजनाओं की जानकारी।</p>
+<a href="https://scholarships.gov.in/" target="_blank">Visit Website ↗</a>
+</div>
+<div class="card">
+<h3>MP Scholarship Portal</h3>
+<p>मध्य प्रदेश की छात्रवृत्ति योजनाओं की जानकारी।</p>
+<a href="https://scholarshipportal.mp.nic.in/" target="_blank">Visit Website ↗</a>
+</div>
+</div>
+</section>
+
+<section class="container" id="colleges">
+<div class="heading"><h2>College Information</h2></div>
+<div class="grid">
+<div class="card">
+<h3>IIT Colleges</h3>
+<p>Engineering और Technology की पढ़ाई।</p>
+<a href="https://jeeadv.ac.in/" target="_blank">Explore ↗</a>
+</div>
+<div class="card">
+<h3>Medical Colleges</h3>
+<p>Medical Education और NEET की जानकारी।</p>
+<a href="https://neet.nta.nic.in/" target="_blank">Explore ↗</a>
+</div>
+<div class="card">
+<h3>University Information</h3>
+<p>भारत के विश्वविद्यालयों की जानकारी।</p>
+<a href="https://www.ugc.gov.in/" target="_blank">Explore ↗</a>
+</div>
+</div>
+</section>
+
+<section class="container" id="report">
+<div class="heading"><h2>Career Report</h2></div>
+<div class="formbox">
+<p>अपना Career Test पूरा करने के बाद अपनी रिपोर्ट यहाँ से प्रिंट या PDF में सेव करें।</p>
+<button class="btn" onclick="window.print()">Download / Print Report</button>
+</div>
+</section>
+
+<section class="container" id="chatbot">
+<div class="heading">
+<h2>🤖 Career AI Chatbot</h2>
+<p>Ask questions about your future career.</p>
+</div>
+<div class="chatbox">
+<div id="chatMessages">
+<div class="message bot">Hello! मैं आपका Career Assistant हूँ। अपना सवाल पूछिए।</div>
+</div>
+<input id="chatInput" placeholder="Ask your career question...">
+<button class="btn" onclick="sendMessage()">Send Message</button>
+</div>
+</section>
+
+<footer>
+<h3>🚀 AI Career Navigator</h3>
+<p>Discover Your Future. Build Your Career.</p>
+<p>Educational Project | 2026</p>
+</footer>
+
+<script>
+const features=[
+["👤","Student Registration","Create your student profile."],
+["🧠","AI Career Suggestion","Find suitable career options."],
+["📋","Interest Test","Discover your interests."],
+["🎯","Career Guidance","Explore career opportunities."],
+["🛣️","Career Roadmap","Plan your career journey."],
+["🤖","AI Chatbot","Ask career related questions."],
+["📚","Course Information","Explore different courses."],
+["🏆","Scholarship Guide","Explore scholarship schemes."],
+["🏫","College Information","Find college information."],
+["📄","Career Report","Print your career report."]
+];
+
+document.getElementById("featureGrid").innerHTML=
+features.map(f=>`
+<div class="card">
+<div class="icon">${f[0]}</div>
+<h3>${f[1]}</h3><p>${f[2]}</p>
+</div>`).join("");
+
+const careers={
+technology:["Software Developer","Data Scientist","AI Engineer"],
+medical:["Doctor","Nurse","Pharmacist"],
+agriculture:["Agriculture Scientist","Agriculture Engineer","Agriculture Officer"],
+business:["Business Manager","Accountant","Entrepreneur"],
+creative:["Graphic Designer","Artist","Animator"],
+teaching:["Teacher","Professor","Education Consultant"]
+};
+
+const courses=[
+["Technology","B.Tech, BCA, B.Sc Computer Science"],
+["Medical","MBBS, B.Pharm, B.Sc Nursing"],
+["Agriculture","B.Sc Agriculture, B.Tech Agricultural Engineering"],
+["Business","BBA, B.Com, MBA"],
+["Creative Arts","BFA, Design, Animation"]
+];
+
+document.getElementById("careerGrid").innerHTML=
+Object.entries(careers).map(([key,items])=>`
+<div class="card">
+<h3>${key.toUpperCase()}</h3>
+<p>${items.join("<br>")}</p>
+</div>`).join("");
+
+document.getElementById("courseGrid").innerHTML=
+courses.map(c=>`
+<div class="card">
+<h3>${c[0]}</h3><p>${c[1]}</p>
+</div>`).join("");
+
+let latestReport="";
+
+document.getElementById("studentForm").addEventListener("submit",function(e){
+e.preventDefault();
+let name=document.getElementById("name").value;
+let interest=document.getElementById("interest").value;
+document.getElementById("registrationResult").innerHTML=
+`<div class="result">
+<h3>Welcome, ${escapeHTML(name)}!</h3>
+<p>Your registration details have been entered.</p>
+<p>Interest: ${escapeHTML(interest)}</p>
+<p>अब अपना Career Interest Test पूरा करें।</p>
+</div>`;
+});
+
+function careerTest(){
+let a=document.getElementById("q1").value;
+let b=document.getElementById("q2").value;
+let c=document.getElementById("q3").value;
+
+let scores={};
+[a,b,c].forEach(x=>scores[x]=(scores[x]||0)+1);
+let winner=Object.keys(scores).sort((x,y)=>scores[y]-scores[x])[0];
+
+let options=careers[winner]||careers.technology;
+let name=document.getElementById("name").value||"Student";
+
+latestReport=`
+AI CAREER NAVIGATOR REPORT
+Student: ${name}
+Interest: ${winner}
+Suggested Careers: ${options.join(", ")}
+This is an educational suggestion, not a professional assessment.
+`;
+
+document.getElementById("testResult").innerHTML=`
+<div class="result">
+<h3>🎉 Your Career Suggestions</h3>
+<p><b>Interest Area:</b> ${winner}</p>
+<p><b>Recommended Careers:</b></p>
+${options.map(x=>"• "+x).join("<br>")}
+<p>ये शुरुआती सुझाव हैं। अपनी योग्यता और कोर्स की पात्रता भी जाँचें।</p>
+<button class="btn" onclick="downloadReport()">Download Report</button>
+</div>`;
+}
+
+function downloadReport(){
+if(!latestReport){alert("Please complete the career test first.");return;}
+let file=new Blob([latestReport],{type:"text/plain"});
+let link=document.createElement("a");
+link.href=URL.createObjectURL(file);
+link.download="Career-Report.txt";
+link.click();
+URL.revokeObjectURL(link.href);
+}
+
+function sendMessage(){
+let input=document.getElementById("chatInput");
+let question=input.value.trim();
+if(!question)return;
+let chat=document.getElementById("chatMessages");
+chat.innerHTML+=`<div class="message user">${escapeHTML(question)}</div>`;
+let answer="आपकी रुचि और योग्यता के अनुसार करियर चुनना महत्वपूर्ण है। Career Test पूरा करें और संबंधित कोर्स की पात्रता, फीस तथा प्रवेश प्रक्रिया की जाँच करें।";
+chat.innerHTML+=`<div class="message bot">${answer}</div>`;
+input.value="";
+chat.scrollTop=chat.scrollHeight;
+}
+
+function escapeHTML(value){
+return String(value).replace(/[&<>"']/g,function(c){
+return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+});
+}
+</script>
+
+</body>
+</html>
