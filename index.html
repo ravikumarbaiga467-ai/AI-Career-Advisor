@@ -1,301 +1,1180 @@
-<label>Class</label>
-<select id="class">
-<option>10th</option>
-<option>11th</option>
-<option>12th</option>
-<option>College</option>
-</select>
 
-<label>Stream</label>
-<select id="stream">
-<option>Science</option>
-<option>Commerce</option>
-<option>Arts</option>
-<option>Agriculture</option>
-</select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI Career Advisor - Smart career guidance for students.">
+<title>AI Career Advisor | Smart Career Guidance</title>
 
-<label>Your Skills</label>
-<input id="skills" placeholder="Example: Computer, Drawing, Maths">
+<style>
+:root{
+  --primary:#635bff;
+  --secondary:#12b8a6;
+  --dark:#172033;
+  --light:#f5f7ff;
+  --text:#344054;
+  --white:#ffffff;
+  --border:#e5e7eb;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--light);
+  color:var(--text);
+  line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{
+  background:var(--white);
+  position:sticky;top:0;z-index:1000;
+  box-shadow:0 2px 15px #0000000c;
+}
+.navbar{
+  max-width:1200px;margin:auto;padding:14px 20px;
+  display:flex;justify-content:space-between;
+  align-items:center;gap:15px;
+}
+.logo{font-size:22px;font-weight:800;color:var(--primary)}
+.nav-links{display:flex;gap:18px;flex-wrap:wrap}
+.nav-links a{font-size:13px;font-weight:600}
+.nav-links a:hover{color:var(--primary)}
+.menu-btn{display:none;border:0;background:none;font-size:25px}
+.hero{
+  background:linear-gradient(120deg,#24215f,#635bff,#159dba);
+  color:white;padding:90px 20px;text-align:center;
+}
+.hero h1{font-size:clamp(32px,5vw,55px);line-height:1.2}
+.hero p{max-width:700px;margin:18px auto;color:#eee;font-size:17px}
+.hero-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{
+  display:inline-block;border:0;border-radius:9px;
+  padding:12px 20px;background:var(--primary);
+  color:white;font-weight:700;
+}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
+.btn-white{background:white;color:var(--primary)}
+.btn-green{background:var(--secondary)}
+.btn-small{padding:8px 13px;font-size:13px}
+.container{max-width:1150px;margin:auto;padding:65px 20px}
+.heading{text-align:center;margin-bottom:30px}
+.heading h2{font-size:30px;color:var(--dark)}
+.heading p{color:#667085;margin-top:7px}
+.stats{
+  max-width:1050px;margin:-35px auto 0;
+  position:relative;padding:0 15px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:15px;
+}
+.stat{
+  background:white;border-radius:13px;padding:22px;
+  text-align:center;box-shadow:0 5px 20px #0000000b;
+}
+.stat h2{color:var(--primary);font-size:27px}
+.stat p{font-size:13px;color:#667085}
+.grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.card{
+  background:white;padding:23px;border-radius:13px;
+  border:1px solid var(--border);
+  box-shadow:0 4px 15px #00000006;
+  transition:.2s;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 22px #00000012}
+.card h3{color:var(--dark);margin:8px 0}
+.card p{font-size:14px;color:#667085}
+.icon{font-size:32px}
+.card a{color:var(--primary);font-weight:700;font-size:14px}
+.formbox,.chatbox{
+  max-width:850px;margin:auto;background:white;
+  padding:28px;border-radius:15px;
+  border:1px solid var(--border);
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}
+label{font-weight:700;font-size:14px;color:var(--dark)}
+input,select,textarea{
+  width:100%;padding:12px;border:1px solid #d0d5dd;
+  border-radius:8px;background:white;outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--primary)}
+textarea{min-height:90px;resize:vertical}
+.full{grid-column:1/-1}
+.result{
+  margin-top:22px;background:#f0f5ff;
+  border:1px solid #dbe5ff;border-radius:12px;padding:22px;
+}
+.result h3{color:var(--primary);margin-bottom:10px}
+.result li{margin:5px 0 5px 20px}
+.hidden{display:none}
+.progress{
+  background:#e5e7eb;height:9px;border-radius:20px;
+  overflow:hidden;margin:10px 0;
+}
+.progress-bar{height:100%;background:var(--secondary);width:0}
+.career-tag{
+  display:inline-block;background:#eeedff;color:#5148d9;
+  border-radius:20px;padding:4px 10px;margin:5px;
+  font-size:12px;font-weight:bold;
+}
+.roadmap-step{
+  border-left:4px solid var(--primary);
+  padding:5px 0 18px 20px;margin:10px 0;
+}
+.chatbox{max-width:750px}
+.chat-messages{
+  height:310px;overflow-y:auto;border:1px solid var(--border);
+  padding:15px;border-radius:10px;margin-bottom:15px;
+}
+.message{
+  padding:11px 14px;border-radius:12px;
+  margin-bottom:10px;max-width:90%;font-size:14px;
+  white-space:pre-wrap;
+}
+.bot{background:#f0f1ff;margin-right:auto}
+.user{background:#e2f7f3;margin-left:auto}
+.chat-controls{display:flex;gap:10px}
+.chat-controls input{flex:1}
+footer{
+  background:#171b32;color:white;text-align:center;
+  padding:35px 20px;
+}
+footer p{color:#cbd0df;font-size:14px;margin-top:6px}
+.notice{font-size:12px;color:#667085;margin-top:15px}
+.search-box{max-width:600px;margin:0 auto 25px}
+.search-box input{padding:14px}
+#careerCards .card{display:flex;flex-direction:column}
+#careerCards .btn{margin-top:auto;align-self:flex-start}
+@media(max-width:850px){
+  .nav-links{
+    display:none;position:absolute;top:65px;left:0;width:100%;
+    background:white;padding:20px;flex-direction:column;
+  }
+  .nav-links.active{display:flex}
+  .menu-btn{display:block}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .grid,.stats,.form-grid{grid-template-columns:1fr}
+  .hero{padding:65px 18px}
+  .container{padding:45px 16px}
+  .formbox{padding:18px}
+  .chat-controls{flex-direction:column}
+  .heading h2{font-size:25px}
+}
+@media print{
+  header,.hero,footer,.no-print,.stats{display:none!important}
+  body{background:white}
+  .container{padding:15px}
+  .card,.formbox{box-shadow:none}
+}
+</style>
+</head>
 
-<label>Your Interest</label>
-<select id="interest">
-<option value="technology">Technology</option>
-<option value="medical">Medical</option>
-<option value="agriculture">Agriculture</option>
-<option value="business">Business</option>
-<option value="teaching">Teaching</option>
-<option value="creative">Creative Arts</option>
-</select>
+<body>
 
-<button class="btn" type="submit">Register Now</button>
-</form>
-<div id="registrationResult"></div>
-</div>
+<header>
+<nav class="navbar">
+  <a class="logo" href="#home">🚀 Career Advisor</a>
+  <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+  <div class="nav-links" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#register">Register</a>
+    <a href="#advisor">AI Advisor</a>
+    <a href="#test">Career Test</a>
+    <a href="#careers">Careers</a>
+    <a href="#courses">Courses</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#chatbot">Chatbot</a>
+  </div>
+</nav>
+</header>
+
+<!-- HOME -->
+<section class="hero" id="home">
+  <h1>Discover Your Future Career</h1>
+  <p>
+    Your personal AI Career Advisor. Explore career opportunities,
+    discover your strengths, find suitable courses and plan your future.
+  </p>
+  <div class="hero-buttons">
+    <a href="#advisor" class="btn btn-white">Find My Career</a>
+    <a href="#test" class="btn btn-green">Start Career Test</a>
+  </div>
 </section>
 
+<div class="stats">
+  <div class="stat"><h2>50+</h2><p>Career Options</p></div>
+  <div class="stat"><h2>30+</h2><p>Course Options</p></div>
+  <div class="stat"><h2>6</h2><p>Interest Categories</p></div>
+  <div class="stat"><h2>24/7</h2><p>Career Learning</p></div>
+</div>
+
+<!-- FEATURES -->
+<section class="container">
+  <div class="heading">
+    <h2>Explore Our Features</h2>
+    <p>Everything a student needs for career planning.</p>
+  </div>
+  <div class="grid" id="featureGrid"></div>
+</section>
+
+<!-- REGISTRATION -->
+<section class="container" id="register">
+  <div class="heading">
+    <h2>👨‍🎓 Student Registration</h2>
+    <p>Create your student profile to get career suggestions.</p>
+  </div>
+  <div class="formbox">
+    <form id="studentForm">
+      <div class="form-grid">
+        <div class="field">
+          <label for="name">Full Name *</label>
+          <input id="name" required placeholder="Enter your name">
+        </div>
+        <div class="field">
+          <label for="email">Email (Optional)</label>
+          <input id="email" type="email" placeholder="Enter email">
+        </div>
+        <div class="field">
+          <label for="class">Current Class *</label>
+          <select id="class" required>
+            <option value="">Select Class</option>
+            <option>8th</option><option>9th</option>
+            <option>10th</option><option>11th</option>
+            <option>12th</option><option>College</option>
+            <option>Graduate</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="stream">Stream *</label>
+          <select id="stream" required>
+            <option value="">Select Stream</option>
+            <option>Science</option><option>Commerce</option>
+            <option>Arts</option><option>Agriculture</option>
+            <option>Vocational</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="maths">Mathematics Background</label>
+          <select id="maths">
+            <option value="yes">Mathematics</option>
+            <option value="no">No Mathematics</option>
+            <option value="basic">Basic Mathematics</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="education">Education Status</label>
+          <select id="education">
+            <option>Currently Studying</option>
+            <option>Passed</option>
+            <option>Preparing for Exams</option>
+            <option>Looking for College</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="interest">Main Interest *</label>
+          <select id="interest" required>
+            <option value="">Select Interest</option>
+            <option value="technology">Technology</option>
+            <option value="medical">Medical</option>
+            <option value="agriculture">Agriculture</option>
+            <option value="business">Business</option>
+            <option value="teaching">Teaching</option>
+            <option value="creative">Creative Arts</option>
+            <option value="government">Government Jobs</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="marks">Last Exam Percentage (Optional)</label>
+          <input id="marks" type="number" min="0" max="100" placeholder="Example: 75">
+        </div>
+        <div class="field full">
+          <label for="skills">Your Skills</label>
+          <input id="skills" placeholder="Computer, Drawing, Communication, Maths...">
+        </div>
+        <div class="field full">
+          <label for="subjects">Favourite Subjects</label>
+          <input id="subjects" placeholder="English, Biology, Computer, History...">
+        </div>
+        <div class="field full">
+          <label for="goal">Your Dream Career</label>
+          <input id="goal" placeholder="Example: Software Engineer">
+        </div>
+      </div>
+      <button class="btn" type="submit">Register Now</button>
+    </form>
+    <div id="registrationResult"></div>
+  </div>
+</section>
+
+<!-- AI ADVISOR -->
+<section class="container" id="advisor">
+  <div class="heading">
+    <h2>🧠 Smart AI Career Advisor</h2>
+    <p>Get career recommendations according to your education and interests.</p>
+  </div>
+  <div class="formbox">
+    <div class="field">
+      <label for="advisorClass">Your Current Education</label>
+      <select id="advisorClass">
+        <option>10th</option><option>11th</option>
+        <option>12th</option><option>College</option>
+        <option>Graduate</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="advisorStream">Your Stream</label>
+      <select id="advisorStream">
+        <option>Science</option><option>Commerce</option>
+        <option>Arts</option><option>Agriculture</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="advisorMaths">Mathematics</label>
+      <select id="advisorMaths">
+        <option value="yes">I have Mathematics</option>
+        <option value="no">I do not have Mathematics</option>
+        <option value="basic">Basic Mathematics</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="advisorInterest">Career Interest</label>
+      <select id="advisorInterest">
+        <option value="technology">Technology / IT</option>
+        <option value="medical">Medical / Healthcare</option>
+        <option value="agriculture">Agriculture</option>
+        <option value="business">Business / Finance</option>
+        <option value="creative">Creative / Design</option>
+        <option value="teaching">Teaching</option>
+        <option value="government">Government Services</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="advisorSkills">Skills and Strengths</label>
+      <textarea id="advisorSkills" placeholder="Write your skills and strengths..."></textarea>
+    </div>
+    <div class="field">
+      <label for="advisorPreference">What kind of work do you prefer?</label>
+      <select id="advisorPreference">
+        <option value="computer">Working with computers</option>
+        <option value="people">Helping people</option>
+        <option value="nature">Working with nature</option>
+        <option value="business">Managing business</option>
+        <option value="creative">Creative work</option>
+        <option value="public">Public service</option>
+      </select>
+    </div>
+    <button class="btn" onclick="generateCareer()">✨ Generate Career Suggestions</button>
+    <div id="advisorResult"></div>
+  </div>
+</section>
+
+<!-- INTEREST TEST -->
 <section class="container" id="test">
-<div class="heading">
-<h2>Career Interest Test</h2>
-<p>Answer these questions to discover your interests.</p>
-</div>
-
-<div class="formbox">
-<label>1. What do you enjoy most?</label>
-<select id="q1">
-<option value="technology">Technology and Computers</option>
-<option value="medical">Helping and caring for people</option>
-<option value="agriculture">Farming and Nature</option>
-<option value="business">Business and Management</option>
-<option value="creative">Art and Creativity</option>
-</select>
-
-<label>2. Which subject do you like?</label>
-<select id="q2">
-<option value="technology">Mathematics / Computer</option>
-<option value="medical">Biology</option>
-<option value="agriculture">Agriculture / Biology</option>
-<option value="business">Economics</option>
-<option value="creative">Drawing / Arts</option>
-</select>
-
-<label>3. What is your dream work?</label>
-<select id="q3">
-<option value="technology">Software Developer</option>
-<option value="medical">Doctor</option>
-<option value="agriculture">Agriculture Scientist</option>
-<option value="business">Entrepreneur</option>
-<option value="creative">Designer</option>
-</select>
-
-<button class="btn" onclick="careerTest()">Submit Test</button>
-<div id="testResult"></div>
-</div>
+  <div class="heading">
+    <h2>📋 Career Interest Test</h2>
+    <p>Answer these questions to discover your interest area.</p>
+  </div>
+  <div class="formbox">
+    <div id="testQuestions"></div>
+    <button class="btn" onclick="careerTest()">Submit Test</button>
+    <div id="testResult"></div>
+  </div>
 </section>
 
-<section class="container" id="guidance">
-<div class="heading">
-<h2>Career Guidance</h2>
-<p>Explore popular career fields.</p>
-</div>
-<div class="grid" id="careerGrid"></div>
+<!-- CAREER EXPLORER -->
+<section class="container" id="careers">
+  <div class="heading">
+    <h2>🎯 Career Explorer</h2>
+    <p>Explore different career opportunities and professions.</p>
+  </div>
+  <div class="search-box">
+    <input id="careerSearch" placeholder="Search career...">
+  </div>
+  <div class="grid" id="careerCards"></div>
 </section>
 
-<section class="container" id="roadmap">
-<div class="heading">
-<h2>Career Roadmap</h2>
-<p>Steps to build your future.</p>
-</div>
-<div class="grid">
-<div class="card">
-<h3>Step 1</h3><p>Complete your school education.</p>
-</div>
-<div class="card">
-<h3>Step 2</h3><p>Choose a suitable course and stream.</p>
-</div>
-<div class="card">
-<h3>Step 3</h3><p>Prepare for entrance exams if required.</p>
-</div>
-<div class="card">
-<h3>Step 4</h3><p>Develop practical skills and gain experience.</p>
-</div>
-</div>
-</section>
-
+<!-- COURSES -->
 <section class="container" id="courses">
-<div class="heading"><h2>Course Information</h2></div>
-<div class="grid" id="courseGrid"></div>
+  <div class="heading">
+    <h2>📚 Course Finder</h2>
+    <p>Explore courses after school and graduation.</p>
+  </div>
+  <div class="grid" id="courseGrid"></div>
 </section>
 
+<!-- ROADMAP -->
+<section class="container" id="roadmap">
+  <div class="heading">
+    <h2>🛣️ Career Roadmap</h2>
+    <p>Understand the steps to build your career.</p>
+  </div>
+  <div class="formbox">
+    <div class="field">
+      <label>Select Career</label>
+      <select id="roadmapCareer">
+        <option value="software">Software Developer</option>
+        <option value="ai">AI / Machine Learning Engineer</option>
+        <option value="doctor">Doctor</option>
+        <option value="teacher">Teacher</option>
+        <option value="business">Entrepreneur</option>
+        <option value="agriculture">Agriculture Scientist</option>
+        <option value="designer">Graphic Designer</option>
+        <option value="data">Data Analyst</option>
+      </select>
+    </div>
+    <button class="btn" onclick="showRoadmap()">Generate My Roadmap</button>
+    <div id="roadmapResult"></div>
+  </div>
+</section>
+
+<!-- SCHOLARSHIPS -->
 <section class="container" id="scholarship">
-<div class="heading"><h2>Scholarship Guide</h2></div>
-<div class="grid">
-<div class="card">
-<h3>National Scholarship Portal</h3>
-<p>केंद्र सरकार की विभिन्न छात्रवृत्ति योजनाओं की जानकारी।</p>
-<a href="https://scholarships.gov.in/" target="_blank">Visit Website ↗</a>
-</div>
-<div class="card">
-<h3>MP Scholarship Portal</h3>
-<p>मध्य प्रदेश की छात्रवृत्ति योजनाओं की जानकारी।</p>
-<a href="https://scholarshipportal.mp.nic.in/" target="_blank">Visit Website ↗</a>
-</div>
-</div>
+  <div class="heading">
+    <h2>🏆 Scholarship Guide</h2>
+    <p>Explore official scholarship portals.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="icon">🇮🇳</div>
+      <h3>National Scholarship Portal</h3>
+      <p>केंद्र सरकार की छात्रवृत्ति योजनाओं की जानकारी।</p>
+      <a href="https://scholarships.gov.in/" target="_blank" rel="noopener">Visit Official Website ↗</a>
+    </div>
+    <div class="card">
+      <div class="icon">🏛️</div>
+      <h3>MP Scholarship Portal</h3>
+      <p>मध्य प्रदेश की छात्रवृत्ति योजनाओं की जानकारी।</p>
+      <a href="https://scholarshipportal.mp.nic.in/" target="_blank" rel="noopener">Visit Official Website ↗</a>
+    </div>
+    <div class="card">
+      <div class="icon">🎓</div>
+      <h3>AICTE Scholarships</h3>
+      <p>Technical education से जुड़ी योजनाओं की जानकारी।</p>
+      <a href="https://www.aicte-india.org/" target="_blank" rel="noopener">Visit Website ↗</a>
+    </div>
+  </div>
 </section>
 
+<!-- COLLEGES -->
 <section class="container" id="colleges">
-<div class="heading"><h2>College Information</h2></div>
-<div class="grid">
-<div class="card">
-<h3>IIT Colleges</h3>
-<p>Engineering और Technology की पढ़ाई।</p>
-<a href="https://jeeadv.ac.in/" target="_blank">Explore ↗</a>
-</div>
-<div class="card">
-<h3>Medical Colleges</h3>
-<p>Medical Education और NEET की जानकारी।</p>
-<a href="https://neet.nta.nic.in/" target="_blank">Explore ↗</a>
-</div>
-<div class="card">
-<h3>University Information</h3>
-<p>भारत के विश्वविद्यालयों की जानकारी।</p>
-<a href="https://www.ugc.gov.in/" target="_blank">Explore ↗</a>
-</div>
-</div>
+  <div class="heading">
+    <h2>🏫 College & Entrance Exam Guide</h2>
+    <p>Explore official admission and education websites.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>IIT / Engineering</h3>
+      <p>Engineering entrance information.</p>
+      <a href="https://jeeadv.ac.in/" target="_blank" rel="noopener">JEE Advanced ↗</a>
+    </div>
+    <div class="card">
+      <h3>Medical Education</h3>
+      <p>NEET examination information.</p>
+      <a href="https://neet.nta.nic.in/" target="_blank" rel="noopener">NEET Official ↗</a>
+    </div>
+    <div class="card">
+      <h3>University Information</h3>
+      <p>Recognized universities and education information.</p>
+      <a href="https://www.ugc.gov.in/" target="_blank" rel="noopener">UGC Official ↗</a>
+    </div>
+    <div class="card">
+      <h3>CUET Admission</h3>
+      <p>Common University Entrance Test information.</p>
+      <a href="https://exams.nta.ac.in/CUET-UG/" target="_blank" rel="noopener">CUET UG ↗</a>
+    </div>
+    <div class="card">
+      <h3>Skill India</h3>
+      <p>Explore skill development and vocational learning.</p>
+      <a href="https://www.skillindiadigital.gov.in/" target="_blank" rel="noopener">Skill India ↗</a>
+    </div>
+    <div class="card">
+      <h3>AICTE</h3>
+      <p>Technical education and institution information.</p>
+      <a href="https://www.aicte-india.org/" target="_blank" rel="noopener">AICTE ↗</a>
+    </div>
+  </div>
 </section>
 
-<section class="container" id="report">
-<div class="heading"><h2>Career Report</h2></div>
-<div class="formbox">
-<p>अपना Career Test पूरा करने के बाद अपनी रिपोर्ट यहाँ से प्रिंट या PDF में सेव करें।</p>
-<button class="btn" onclick="window.print()">Download / Print Report</button>
-</div>
-</section>
-
+<!-- CHATBOT -->
 <section class="container" id="chatbot">
-<div class="heading">
-<h2>🤖 Career AI Chatbot</h2>
-<p>Ask questions about your future career.</p>
-</div>
-<div class="chatbox">
-<div id="chatMessages">
-<div class="message bot">Hello! मैं आपका Career Assistant हूँ। अपना सवाल पूछिए।</div>
-</div>
-<input id="chatInput" placeholder="Ask your career question...">
-<button class="btn" onclick="sendMessage()">Send Message</button>
-</div>
+  <div class="heading">
+    <h2>🤖 Career AI Chatbot</h2>
+    <p>Ask questions about careers, courses and education.</p>
+  </div>
+  <div class="chatbox">
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">
+        नमस्ते! मैं आपका Career Assistant हूँ।
+        आप मुझसे Career, Courses, Skills और Education के बारे में सवाल पूछ सकते हैं।
+      </div>
+    </div>
+    <div class="chat-controls">
+      <input id="chatInput" placeholder="Ask your career question..." maxlength="500">
+      <button class="btn" onclick="sendMessage()">Send</button>
+    </div>
+    <p class="notice">यह offline demo chatbot है। वास्तविक AI chatbot के लिए AI API और backend की जरूरत होगी।</p>
+  </div>
+</section>
+
+<!-- REPORT -->
+<section class="container" id="report">
+  <div class="heading">
+    <h2>📄 My Career Report</h2>
+    <p>Generate and print your career guidance report.</p>
+  </div>
+  <div class="formbox">
+    <div id="reportContent">
+      <p>Complete your student registration and career test to prepare your report.</p>
+    </div>
+    <br>
+    <button class="btn" onclick="downloadReport()">Download Report</button>
+    <button class="btn btn-green" onclick="window.print()">Print / Save as PDF</button>
+  </div>
 </section>
 
 <footer>
-<h3>🚀 AI Career Navigator</h3>
-<p>Discover Your Future. Build Your Career.</p>
-<p>Educational Project | 2026</p>
+  <h2>🚀 AI Career Advisor</h2>
+  <p>Discover Your Future. Build Your Career.</p>
+  <p>Educational Project | 2026</p>
+  <p>Career suggestions are educational guidance, not a guarantee of admission or employment.</p>
 </footer>
 
 <script>
+// ====================================
+// DATA
+// ====================================
+
 const features=[
-["👤","Student Registration","Create your student profile."],
-["🧠","AI Career Suggestion","Find suitable career options."],
-["📋","Interest Test","Discover your interests."],
-["🎯","Career Guidance","Explore career opportunities."],
-["🛣️","Career Roadmap","Plan your career journey."],
-["🤖","AI Chatbot","Ask career related questions."],
-["📚","Course Information","Explore different courses."],
-["🏆","Scholarship Guide","Explore scholarship schemes."],
-["🏫","College Information","Find college information."],
-["📄","Career Report","Print your career report."]
+ ["👨‍🎓","Student Registration","Create your student profile.","#register"],
+ ["🧠","AI Career Advisor","Get personalized career suggestions.","#advisor"],
+ ["📋","Interest Test","Discover your interests.","#test"],
+ ["🎯","Career Explorer","Explore different professions.","#careers"],
+ ["🛣️","Career Roadmap","Plan your career journey.","#roadmap"],
+ ["📚","Course Finder","Explore educational courses.","#courses"],
+ ["🏆","Scholarship Guide","Explore scholarship portals.","#scholarship"],
+ ["🏫","College Guide","Find admission resources.","#colleges"],
+ ["🤖","Career Chatbot","Ask career questions.","#chatbot"],
+ ["📄","Career Report","Generate your career report.","#report"]
 ];
 
-document.getElementById("featureGrid").innerHTML=
-features.map(f=>`
-<div class="card">
-<div class="icon">${f[0]}</div>
-<h3>${f[1]}</h3><p>${f[2]}</p>
-</div>`).join("");
-
 const careers={
-technology:["Software Developer","Data Scientist","AI Engineer"],
-medical:["Doctor","Nurse","Pharmacist"],
-agriculture:["Agriculture Scientist","Agriculture Engineer","Agriculture Officer"],
-business:["Business Manager","Accountant","Entrepreneur"],
-creative:["Graphic Designer","Artist","Animator"],
-teaching:["Teacher","Professor","Education Consultant"]
+ technology:{
+  title:"Technology & IT",
+  jobs:[
+   ["Software Developer","Build websites, applications and software.","💻","Programming, logic and problem solving.","Python, JavaScript, Java, C++"],
+   ["AI Engineer","Develop AI applications and intelligent systems.","🤖","Programming, mathematics and machine learning.","Python, Mathematics, ML"],
+   ["Data Analyst","Analyze information and create reports.","📊","Analytical thinking and data skills.","Excel, SQL, Python"],
+   ["Cybersecurity Analyst","Help protect computer systems and information.","🔐","Computer networks and security concepts.","Networking, Linux, Security"],
+   ["Web Developer","Create and maintain websites.","🌐","HTML, CSS, JavaScript and design.","HTML, CSS, JavaScript"],
+   ["App Developer","Create mobile applications.","📱","Programming and app design.","Java, Kotlin, Flutter"]
+  ]
+ },
+ medical:{
+  title:"Medical & Healthcare",
+  jobs:[
+   ["Doctor","Diagnose and treat patients.","🩺","Biology, communication and medical education.","Biology, Chemistry"],
+   ["Nurse","Provide patient care and health support.","🏥","Healthcare knowledge and communication.","Nursing, Biology"],
+   ["Pharmacist","Work with medicines and pharmacy services.","💊","Chemistry and pharmaceutical education.","Pharmacy, Chemistry"],
+   ["Physiotherapist","Help people improve movement and physical function.","🦴","Human biology and rehabilitation.","Biology, Anatomy"]
+  ]
+ },
+ agriculture:{
+  title:"Agriculture",
+  jobs:[
+   ["Agriculture Scientist","Research crops, soil and farming.","🌾","Science, research and agriculture.","Biology, Agriculture"],
+   ["Agriculture Officer","Work in agricultural development and services.","🚜","Agricultural knowledge and relevant exams.","Agriculture, Science"],
+   ["Agribusiness Manager","Manage agriculture-related businesses.","📈","Management and agriculture knowledge.","Business, Agriculture"],
+   ["Food Technologist","Study food quality and processing.","🥗","Food science and laboratory knowledge.","Chemistry, Biology"]
+  ]
+ },
+ business:{
+  title:"Business & Finance",
+  jobs:[
+   ["Entrepreneur","Start and manage your own business.","💼","Business planning and problem solving.","Business, Finance"],
+   ["Accountant","Manage financial records and accounts.","🧾","Accounting and financial knowledge.","Commerce, Accounting"],
+   ["Business Manager","Manage teams and business operations.","📊","Leadership and management.","Management, Communication"],
+   ["Marketing Executive","Promote products and services.","📢","Creativity and communication.","Marketing, Business"]
+  ]
+ },
+ creative:{
+  title:"Creative Arts & Design",
+  jobs:[
+   ["Graphic Designer","Create visual designs and graphics.","🎨","Design, creativity and visual communication.","Design, Photoshop"],
+   ["Animator","Create animated visual content.","🎬","Drawing and animation skills.","Animation, 3D Design"],
+   ["Video Editor","Edit videos for media and entertainment.","🎥","Editing and storytelling.","Video Editing"],
+   ["UI/UX Designer","Design easy-to-use digital products.","🖌️","Design and user research.","Figma, Design"]
+  ]
+ },
+ teaching:{
+  title:"Teaching & Education",
+  jobs:[
+   ["School Teacher","Teach and support school students.","📚","Subject knowledge and teaching skills.","B.Ed, D.El.Ed (as applicable)"],
+   ["Professor","Teach and research in higher education.","🎓","Advanced subject knowledge and qualifications.","Postgraduate, NET/PhD as applicable"],
+   ["Education Consultant","Guide students about learning and courses.","🧑‍🏫","Communication and education knowledge.","Education, Counselling"]
+  ]
+ },
+ government:{
+  title:"Government & Public Services",
+  jobs:[
+   ["Civil Services Officer","Work in public administration.","🏛️","General studies and competitive exam preparation.","Graduation, UPSC eligibility"],
+   ["Banking Officer","Work in banking and financial services.","🏦","Numerical reasoning and financial awareness.","Graduation, Banking exams"],
+   ["Police Officer","Work in law enforcement and public safety.","👮","Physical fitness, general knowledge and exam preparation.","Eligibility varies by post"],
+   ["Defence Services","Serve in the armed forces.","🛡️","Discipline, education and selection preparation.","Eligibility varies by entry"]
+  ]
+ }
 };
 
 const courses=[
-["Technology","B.Tech, BCA, B.Sc Computer Science"],
-["Medical","MBBS, B.Pharm, B.Sc Nursing"],
-["Agriculture","B.Sc Agriculture, B.Tech Agricultural Engineering"],
-["Business","BBA, B.Com, MBA"],
-["Creative Arts","BFA, Design, Animation"]
+ ["BCA","Computer Applications","Technology","Computer"],
+ ["B.Tech","Engineering","Technology","Mathematics"],
+ ["B.Sc Computer Science","Computer Science","Technology","Computer"],
+ ["B.Sc Data Science","Data Science","Technology","Mathematics"],
+ ["B.Sc Nursing","Healthcare","Medical","Biology"],
+ ["MBBS","Medical Education","Medical","Biology"],
+ ["B.Pharm","Pharmacy","Medical","Science"],
+ ["B.Sc Agriculture","Agriculture","Agriculture","Agriculture"],
+ ["BBA","Business Administration","Business","Commerce"],
+ ["B.Com","Commerce","Business","Commerce"],
+ ["BA","Arts and Humanities","Creative","Arts"],
+ ["B.Des","Design","Creative","Drawing"],
+ ["B.Ed","Education","Teaching","Teaching"],
+ ["ITI","Technical Skills","Technology","Practical Skills"],
+ ["Diploma Courses","Vocational Education","Technology","Practical Skills"]
 ];
 
-document.getElementById("careerGrid").innerHTML=
-Object.entries(careers).map(([key,items])=>`
-<div class="card">
-<h3>${key.toUpperCase()}</h3>
-<p>${items.join("<br>")}</p>
-</div>`).join("");
+let student=null;
+let latestReport="";
+let latestTest=null;
+
+// ====================================
+// PAGE INITIALIZATION
+// ====================================
+
+document.getElementById("featureGrid").innerHTML=
+features.map(f=>`
+ <a href="${f[3]}" class="card">
+ <div class="icon">${f[0]}</div>
+ <h3>${f[1]}</h3>
+ <p>${f[2]}</p>
+ </a>`).join("");
+
+function renderCareers(filter=""){
+ const all=Object.entries(careers).flatMap(([key,group])=>
+  group.jobs.map(job=>({...job,category:key,categoryTitle:group.title}))
+ );
+ const filtered=all.filter(job=>
+  (job[0]+" "+job[1]+" "+job.categoryTitle).toLowerCase().includes(filter.toLowerCase())
+ );
+ document.getElementById("careerCards").innerHTML=filtered.map((job,index)=>`
+ <div class="card">
+ <div class="icon">${job[2]}</div>
+ <span class="career-tag">${job.categoryTitle}</span>
+ <h3>${job[0]}</h3>
+ <p>${job[1]}</p>
+ <p><b>Skills:</b> ${job[3]}</p>
+ <button class="btn btn-small" onclick="viewCareer('${job.category}','${index}')">Explore Career</button>
+ </div>`).join("")||"<p>No careers found. Try another search.</p>";
+}
+
+renderCareers();
+
+document.getElementById("careerSearch").addEventListener("input",e=>{
+ renderCareers(e.target.value);
+});
 
 document.getElementById("courseGrid").innerHTML=
 courses.map(c=>`
-<div class="card">
-<h3>${c[0]}</h3><p>${c[1]}</p>
-</div>`).join("");
+ <div class="card">
+ <h3>${c[0]}</h3>
+ <p>${c[1]}</p>
+ <span class="career-tag">${c[2]}</span>
+ <p><b>Useful background:</b> ${c[3]}</p>
+ </div>`).join("");
 
-let latestReport="";
+function viewCareer(category,index){
+ const job=careers[category].jobs[index];
+ if(!job)return;
+ alert(
+ "CAREER: "+job[0]+
+ "\n\nDescription: "+job[1]+
+ "\n\nSkills: "+job[3]+
+ "\n\nLearn: "+job[4]+
+ "\n\nCheck the official course and job eligibility before applying."
+ );
+}
+
+// ====================================
+// STUDENT REGISTRATION
+// ====================================
 
 document.getElementById("studentForm").addEventListener("submit",function(e){
-e.preventDefault();
-let name=document.getElementById("name").value;
-let interest=document.getElementById("interest").value;
-document.getElementById("registrationResult").innerHTML=
-`<div class="result">
-<h3>Welcome, ${escapeHTML(name)}!</h3>
-<p>Your registration details have been entered.</p>
-<p>Interest: ${escapeHTML(interest)}</p>
-<p>अब अपना Career Interest Test पूरा करें।</p>
-</div>`;
+ e.preventDefault();
+
+ student={
+  name:document.getElementById("name").value.trim(),
+  email:document.getElementById("email").value.trim(),
+  class:document.getElementById("class").value,
+  stream:document.getElementById("stream").value,
+  maths:document.getElementById("maths").value,
+  interest:document.getElementById("interest").value,
+  skills:document.getElementById("skills").value.trim(),
+  subjects:document.getElementById("subjects").value.trim(),
+  goal:document.getElementById("goal").value.trim(),
+  marks:document.getElementById("marks").value
+ };
+
+ document.getElementById("registrationResult").innerHTML=`
+ <div class="result">
+ <h3>🎉 Welcome, ${escapeHTML(student.name)}!</h3>
+ <p>Your student profile has been created in this browser session.</p>
+ <p><b>Class:</b> ${escapeHTML(student.class)}</p>
+ <p><b>Stream:</b> ${escapeHTML(student.stream)}</p>
+ <p><b>Interest:</b> ${escapeHTML(student.interest)}</p>
+ <p>Now use the AI Career Advisor to explore career options.</p>
+ </div>`;
+
+ document.getElementById("advisorClass").value=
+  student.class==="Graduate"?"Graduate":
+  student.class==="College"?"College":
+  student.class;
+
+ document.getElementById("advisorStream").value=student.stream;
+ document.getElementById("advisorMaths").value=student.maths;
+ document.getElementById("advisorInterest").value=student.interest;
+ document.getElementById("advisorSkills").value=student.skills;
+ updateReport();
 });
 
+// ====================================
+// SMART CAREER MATCHING ENGINE
+// ====================================
+
+const careerAliases={
+ technology:["technology","computer","programming","coding","software","it","ai"],
+ medical:["medical","doctor","biology","health","nurse","hospital"],
+ agriculture:["agriculture","farming","nature","crop","soil"],
+ business:["business","commerce","account","finance","management"],
+ creative:["creative","art","drawing","design","animation"],
+ teaching:["teaching","teacher","education","professor"],
+ government:["government","civil service","police","defence","bank"]
+};
+
+function generateCareer(){
+ const interest=document.getElementById("advisorInterest").value;
+ const stream=document.getElementById("advisorStream").value;
+ const maths=document.getElementById("advisorMaths").value;
+ const skills=document.getElementById("advisorSkills").value.toLowerCase();
+ const preference=document.getElementById("advisorPreference").value;
+ const cls=document.getElementById("advisorClass").value;
+
+ let scores={};
+ Object.keys(careers).forEach(key=>scores[key]=0);
+
+ scores[interest]+=5;
+
+ const streamMap={
+  Science:["technology","medical"],
+  Commerce:["business"],
+  Arts:["creative","teaching","government"],
+  Agriculture:["agriculture"]
+ };
+ (streamMap[stream]||[]).forEach(x=>scores[x]+=2);
+
+ const preferenceMap={
+  computer:"technology",people:"medical",
+  nature:"agriculture",business:"business",
+  creative:"creative",public:"government"
+ };
+ scores[preferenceMap[preference]]+=2;
+
+ Object.entries(careerAliases).forEach(([category,words])=>{
+  words.forEach(word=>{
+   if(skills.includes(word))scores[category]+=1;
+  });
+ });
+
+ if(skills.includes("teach"))scores.teaching+=2;
+ if(skills.includes("math"))scores.technology+=1;
+ if(skills.includes("draw"))scores.creative+=2;
+
+ let ranking=Object.entries(scores)
+  .sort((a,b)=>b[1]-a[1])
+  .slice(0,3);
+
+ let top=ranking[0][0];
+ let maxScore=Math.max(1,ranking[0][1]);
+ let options=careers[top].jobs.slice(0,3);
+
+ let results=ranking.map(([key,score])=>{
+  let percent=Math.round(score/maxScore*100);
+  return `
+  <div style="margin:15px 0">
+   <b>${careers[key].title}</b>
+   <div class="progress"><div class="progress-bar" style="width:${percent}%"></div></div>
+   <small>Relative preference match: ${percent}%</small>
+  </div>`;
+ }).join("");
+
+ let extraNotice="";
+ if(top==="technology" && maths==="no"){
+  extraNotice=`<p><b>Important:</b> Some technical degrees and admission routes require Mathematics. Other pathways, including certain BCA, diploma and skill-based options, may have different eligibility rules. Check the current college requirements.</p>`;
+ }
+
+ document.getElementById("advisorResult").innerHTML=`
+ <div class="result">
+  <h3>🎯 Your Career Recommendations</h3>
+  <p><b>Top Interest:</b> ${careers[top].title}</p>
+  ${results}
+  <h3>Recommended Careers</h3>
+  <ul>${options.map(j=>`<li><b>${j[0]}</b> – ${j[1]}</li>`).join("")}</ul>
+  <p><b>Education:</b> ${escapeHTML(cls)} | ${escapeHTML(stream)}</p>
+  <p><b>Mathematics:</b> ${maths==="yes"?"Yes":maths==="no"?"No":"Basic"}</p>
+  ${extraNotice}
+  <p>These are initial preference matches, not scientifically validated predictions or admission decisions.</p>
+  <button class="btn btn-small" onclick="saveAdvisorReport('${top}')">Save Career Report</button>
+ </div>`;
+
+ latestTest={
+  category:top,
+  careers:options.map(x=>x[0]),
+  scores:scores
+ };
+ updateReport();
+}
+
+// ====================================
+// CAREER INTEREST TEST
+// ====================================
+
+const questions=[
+ {q:"1. What do you enjoy most?",options:[
+  ["technology","Technology and Computers"],
+  ["medical","Helping and caring for people"],
+  ["agriculture","Farming and Nature"],
+  ["business","Business and Management"],
+  ["creative","Art and Creativity"],
+  ["teaching","Teaching and Explaining"]
+ ]},
+ {q:"2. Which subject do you like most?",options:[
+  ["technology","Mathematics / Computer"],
+  ["medical","Biology"],
+  ["agriculture","Agriculture / Biology"],
+  ["business","Economics / Commerce"],
+  ["creative","Drawing / Arts"],
+  ["teaching","English / Social Studies"]
+ ]},
+ {q:"3. What kind of work do you prefer?",options:[
+  ["technology","Building software and solving problems"],
+  ["medical","Working in healthcare"],
+  ["agriculture","Working with crops and nature"],
+  ["business","Managing money and business"],
+  ["creative","Creating designs and content"],
+  ["teaching","Helping others learn"]
+ ]},
+ {q:"4. Which activity interests you?",options:[
+  ["technology","Coding and computer projects"],
+  ["medical","Learning about the human body"],
+  ["agriculture","Learning about plants and soil"],
+  ["business","Starting a business"],
+  ["creative","Making videos and drawings"],
+  ["teaching","Explaining topics to others"]
+ ]},
+ {q:"5. What is your dream career?",options:[
+  ["technology","Software Developer / AI Engineer"],
+  ["medical","Doctor / Nurse"],
+  ["agriculture","Agriculture Scientist"],
+  ["business","Entrepreneur"],
+  ["creative","Designer / Animator"],
+  ["teaching","Teacher / Professor"]
+ ]}
+];
+
+document.getElementById("testQuestions").innerHTML=
+questions.map((q,i)=>`
+ <div class="field">
+ <label>${q.q}</label>
+ <select id="question${i}" required>
+ ${q.options.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("")}
+ </select>
+ </div>`).join("");
+
 function careerTest(){
-let a=document.getElementById("q1").value;
-let b=document.getElementById("q2").value;
-let c=document.getElementById("q3").value;
+ let scores={technology:0,medical:0,agriculture:0,business:0,creative:0,teaching:0};
 
-let scores={};
-[a,b,c].forEach(x=>scores[x]=(scores[x]||0)+1);
-let winner=Object.keys(scores).sort((x,y)=>scores[y]-scores[x])[0];
+ questions.forEach((q,i)=>{
+  const value=document.getElementById("question"+i).value;
+  scores[value]++;
+ });
 
-let options=careers[winner]||careers.technology;
-let name=document.getElementById("name").value||"Student";
+ const ranking=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+ const winner=ranking[0][0];
+ const recommended=careers[winner].jobs.slice(0,3);
 
-latestReport=`
-AI CAREER NAVIGATOR REPORT
-Student: ${name}
-Interest: ${winner}
-Suggested Careers: ${options.join(", ")}
-This is an educational suggestion, not a professional assessment.
-`;
+ latestTest={
+  category:winner,
+  careers:recommended.map(x=>x[0]),
+  scores:scores
+ };
 
-document.getElementById("testResult").innerHTML=`
-<div class="result">
-<h3>🎉 Your Career Suggestions</h3>
-<p><b>Interest Area:</b> ${winner}</p>
-<p><b>Recommended Careers:</b></p>
-${options.map(x=>"• "+x).join("<br>")}
-<p>ये शुरुआती सुझाव हैं। अपनी योग्यता और कोर्स की पात्रता भी जाँचें।</p>
-<button class="btn" onclick="downloadReport()">Download Report</button>
-</div>`;
+ document.getElementById("testResult").innerHTML=`
+ <div class="result">
+  <h3>🎉 Your Career Interest Result</h3>
+  <p><b>Your strongest interest:</b> ${careers[winner].title}</p>
+  <p><b>Suggested careers:</b></p>
+  <ul>${recommended.map(x=>`<li>${x[0]}</li>`).join("")}</ul>
+  <h3>Interest Score</h3>
+  ${ranking.map(([key,value])=>`
+   <p>${careers[key].title}: ${value}/5</p>
+   <div class="progress"><div class="progress-bar" style="width:${value*20}%"></div></div>
+  `).join("")}
+  <p>This test is a basic interest activity, not a professional psychological assessment.</p>
+ </div>`;
+
+ updateReport();
+}
+
+// ====================================
+// CAREER ROADMAP
+// ====================================
+
+const roadmaps={
+ software:[
+  "Complete your school education and check course eligibility.",
+  "Learn computer fundamentals and basic mathematics.",
+  "Learn Python, HTML, CSS and JavaScript.",
+  "Study Data Structures and Algorithms.",
+  "Learn databases, Git and software development.",
+  "Build real-world web and software projects.",
+  "Create a portfolio and prepare for internships or jobs."
+ ],
+ ai:[
+  "Build a strong foundation in mathematics and computer fundamentals.",
+  "Learn Python programming.",
+  "Learn NumPy, Pandas and data visualization.",
+  "Study statistics, probability and linear algebra.",
+  "Learn Machine Learning and scikit-learn.",
+  "Explore Deep Learning and AI projects.",
+  "Build a portfolio and explore internships or higher education."
+ ],
+ doctor:[
+  "Check eligibility for the required science subjects.",
+  "Study Physics, Chemistry and Biology where required.",
+  "Prepare for NEET-UG as applicable.",
+  "Complete an eligible medical degree.",
+  "Complete required internship and registration steps."
+ ],
+ teacher:[
+  "Complete school education.",
+  "Choose a suitable subject and higher education course.",
+  "Check required teacher training qualifications.",
+  "Complete the applicable teaching qualification.",
+  "Prepare for relevant teacher eligibility and recruitment exams."
+ ],
+ business:[
+  "Learn communication and basic financial skills.",
+  "Study business and entrepreneurship.",
+  "Understand customers and market research.",
+  "Create a small business plan.",
+  "Build practical experience and develop your business."
+ ],
+ agriculture:[
+  "Study relevant science and agriculture subjects.",
+  "Check eligibility for an agriculture degree or diploma.",
+  "Learn soil science, crops and farm management.",
+  "Gain practical field and research experience.",
+  "Explore agricultural jobs, research or agribusiness."
+ ],
+ designer:[
+  "Develop drawing and visual communication skills.",
+  "Learn design principles and typography.",
+  "Learn tools such as Figma or other design software.",
+  "Create a portfolio of original projects.",
+  "Explore design courses, internships and freelance opportunities."
+ ],
+ data:[
+  "Learn mathematics and basic statistics.",
+  "Learn Excel and spreadsheet analysis.",
+  "Learn SQL and Python.",
+  "Study data visualization and analytical methods.",
+  "Build projects using real datasets.",
+  "Create a portfolio and apply for suitable roles."
+ ]
+};
+
+function showRoadmap(){
+ const career=document.getElementById("roadmapCareer").value;
+ const steps=roadmaps[career];
+ document.getElementById("roadmapResult").innerHTML=`
+ <div class="result">
+  <h3>🛣️ Your Career Roadmap</h3>
+  ${steps.map((s,i)=>`
+   <div class="roadmap-step">
+    <b>Step ${i+1}</b>
+    <p>${s}</p>
+   </div>`).join("")}
+  <p><b>Note:</b> Actual admission and professional requirements vary by course and institution.</p>
+ </div>`;
+}
+
+// ====================================
+// REPORT
+// ====================================
+
+function saveAdvisorReport(category){
+ latestTest={
+  category:category,
+  careers:careers[category].jobs.slice(0,3).map(x=>x[0])
+ };
+ updateReport();
+ document.getElementById("report").scrollIntoView({behavior:"smooth"});
+}
+
+function updateReport(){
+ if(!student && !latestTest)return;
+
+ const studentInfo=student?`
+ <h3>Student Information</h3>
+ <p><b>Name:</b> ${escapeHTML(student.name)}</p>
+ <p><b>Class:</b> ${escapeHTML(student.class)}</p>
+ <p><b>Stream:</b> ${escapeHTML(student.stream)}</p>
+ <p><b>Mathematics:</b> ${student.maths}</p>
+ <p><b>Interest:</b> ${student.interest}</p>
+ <p><b>Skills:</b> ${escapeHTML(student.skills||"Not provided")}</p>
+ `:"<p>Student registration not completed.</p>";
+
+ const careerInfo=latestTest?`
+ <h3>Career Recommendations</h3>
+ <p><b>Recommended Field:</b> ${careers[latestTest.category].title}</p>
+ <ul>${latestTest.careers.map(x=>`<li>${escapeHTML(x)}</li>`).join("")}</ul>
+ `:"<p>Career test/advisor not completed.</p>";
+
+ document.getElementById("reportContent").innerHTML=`
+ <div id="printReport">
+ <h2>AI CAREER ADVISOR REPORT</h2>
+ <p>Generated on: ${new Date().toLocaleDateString("en-IN")}</p>
+ ${studentInfo}
+ ${careerInfo}
+ <hr style="margin:15px 0">
+ <p><b>Disclaimer:</b> This report provides general educational guidance. Verify eligibility, admission requirements, fees and job qualifications with official institutions.</p>
+ </div>`;
+
+ latestReport=document.getElementById("printReport").innerText;
 }
 
 function downloadReport(){
-if(!latestReport){alert("Please complete the career test first.");return;}
-let file=new Blob([latestReport],{type:"text/plain"});
-let link=document.createElement("a");
-link.href=URL.createObjectURL(file);
-link.download="Career-Report.txt";
-link.click();
-URL.revokeObjectURL(link.href);
+ if(!latestReport){
+  alert("Please complete registration or career guidance first.");
+  return;
+ }
+ const blob=new Blob([latestReport],{type:"text/plain;charset=utf-8"});
+ const url=URL.createObjectURL(blob);
+ const link=document.createElement("a");
+ link.href=url;
+ link.download="AI-Career-Advisor-Report.txt";
+ link.click();
+ URL.revokeObjectURL(url);
+}
+
+// ====================================
+// CAREER CHATBOT - OFFLINE DEMO
+// ====================================
+
+function chatbotAnswer(question){
+ const q=question.toLowerCase();
+
+ if(/hello|hi|namaste|नमस्ते/.test(q))
+  return "नमस्ते! मैं आपका Career Assistant हूँ। आप किस career के बारे में जानना चाहते हैं?";
+
+ if(q.includes("software")||q.includes("programming")||q.includes("coding"))
+  return "Software Developer बनने के लिए HTML, CSS, JavaScript और Python से शुरुआत कर सकते हैं। इसके बाद Data Structures, Databases और Projects सीखें। BCA, B.Tech और अन्य pathways की eligibility अलग-अलग हो सकती है।";
+
+ if(q.includes("ai engineer")||q.includes("machine learning"))
+  return "AI Engineer बनने के लिए Python, Mathematics, Statistics, Data Analysis, Machine Learning और Deep Learning सीखें। छोटे projects बनाकर शुरुआत करें।";
+
+ if(q.includes("arts")||q.includes("math"))
+  return "Arts stream से भी कई technology, design, business और creative career pathways संभव हैं। BCA जैसे courses में eligibility कॉलेज और विश्वविद्यालय के अनुसार अलग हो सकती है। Mathematics की शर्त जरूर जाँचें।";
+
+ if(q.includes("bca"))
+  return "BCA Computer Applications का undergraduate course है। इसकी eligibility हर विश्वविद्यालय में एक जैसी नहीं होती। कुछ संस्थान Mathematics मांगते हैं और कुछ अन्य subject combinations स्वीकार करते हैं। Official prospectus देखें।";
+
+ if(q.includes("scholarship"))
+  return "Scholarship के लिए National Scholarship Portal scholarships.gov.in और MP Scholarship Portal scholarshipportal.mp.nic.in देखें। पात्रता और आवेदन की अंतिम तारीख official portal पर जाँचें।";
+
+ if(q.includes("doctor")||q.includes("medical")||q.includes("neet"))
+  return "Medical career के लिए MBBS में प्रवेश हेतु सामान्यतः NEET-UG और निर्धारित subject eligibility की आवश्यकता होती है। आधिकारिक NEET और counselling जानकारी देखें।";
+
+ if(q.includes("agriculture"))
+  return "Agriculture में B.Sc Agriculture, Agriculture Engineering, Agribusiness और Research जैसे विकल्प हैं। हर course की subject eligibility अलग हो सकती है।";
+
+ if(q.includes("teacher")||q.includes("teaching"))
+  return "Teaching में school teacher, lecturer और professor जैसे career options हैं। आवश्यक degree और teacher eligibility परीक्षा पद और स्तर के अनुसार अलग होती है।";
+
+ if(q.includes("business")||q.includes("commerce"))
+  return "Business field में BBA, B.Com, Accounting, Finance, Marketing और Entrepreneurship जैसे विकल्प हैं।";
+
+ if(q.includes("course")||q.includes("college"))
+  return "Course चुनने से पहले अपनी stream, subjects, eligibility, fees, college recognition और admission process जाँचें। UGC और संबंधित official university website देखें।";
+
+ if(q.includes("career")||q.includes("job"))
+  return "Career चुनने के लिए अपनी रुचि, पसंदीदा विषय, skills और शिक्षा को ध्यान में रखें। ऊपर दिए Career Advisor और Interest Test का उपयोग करें।";
+
+ return "आपकी रुचि और शिक्षा के आधार पर सही career चुनना महत्वपूर्ण है। कृपया अपने सवाल में career का नाम या अपना subject बताएं। अधिक सटीक उत्तर के लिए AI API वाला संस्करण जोड़ा जा सकता है।";
 }
 
 function sendMessage(){
-let input=document.getElementById("chatInput");
-let question=input.value.trim();
-if(!question)return;
-let chat=document.getElementById("chatMessages");
-chat.innerHTML+=`<div class="message user">${escapeHTML(question)}</div>`;
-let answer="आपकी रुचि और योग्यता के अनुसार करियर चुनना महत्वपूर्ण है। Career Test पूरा करें और संबंधित कोर्स की पात्रता, फीस तथा प्रवेश प्रक्रिया की जाँच करें।";
-chat.innerHTML+=`<div class="message bot">${answer}</div>`;
-input.value="";
-chat.scrollTop=chat.scrollHeight;
+ const input=document.getElementById("chatInput");
+ const question=input.value.trim();
+ if(!question)return;
+
+ const chat=document.getElementById("chatMessages");
+
+ const user=document.createElement("div");
+ user.className="message user";
+ user.textContent=question;
+ chat.appendChild(user);
+
+ const bot=document.createElement("div");
+ bot.className="message bot";
+ bot.textContent=chatbotAnswer(question);
+ chat.appendChild(bot);
+
+ input.value="";
+ chat.scrollTop=chat.scrollHeight;
 }
+
+document.getElementById("chatInput").addEventListener("keydown",e=>{
+ if(e.key==="Enter")sendMessage();
+});
+
+// ====================================
+// SECURITY AND UTILITIES
+// ====================================
 
 function escapeHTML(value){
-return String(value).replace(/[&<>"']/g,function(c){
-return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
-});
+ return String(value).replace(/[&<>"']/g,function(c){
+  return {
+   "&":"&amp;","<":"&lt;",">":"&gt;",
+   '"':"&quot;","'":"&#39;"
+  }[c];
+ });
 }
-</script>
 
+function toggleMenu(){
+ document.getElementById("navLinks").classList.toggle("active");
+}
+
+document.querySelectorAll(".nav-links a").forEach(link=>{
+ link.addEventListener("click",()=>{
+  document.getElementById("navLinks").classList.remove("active");
+ });
+});
+
+</script>
 </body>
 </html>
